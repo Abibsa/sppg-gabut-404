@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg-main: #050d0a;
+  --bg-secondary: #091411;
+  --accent-primary: #00e5ff;
+  --accent-secondary: #00fff7;
+  --text-main: #ffffff;
+  --text-muted: #556b6b;
+  --grid-line: rgba(0, 229, 255, 0.03);
+  --border-glow: rgba(0, 229, 255, 0.5);
+  --btn-bg: rgba(0, 229, 255, 0.05);
+  --particle-color: #00e5ff;
+}
+
+.light-theme {
+  --bg-main: #f0f4f8;
+  --bg-secondary: #e1e8ed;
+  --accent-primary: #0056b3;
+  --accent-secondary: #0088ff;
+  --text-main: #1a1a1a;
+  --text-muted: #4a5568;
+  --grid-line: rgba(0, 86, 179, 0.1);
+  --border-glow: rgba(0, 86, 179, 0.4);
+  --btn-bg: rgba(0, 86, 179, 0.05);
+  --particle-color: #0056b3;
+}
+
+/* === GLOW EFFECTS === */
+.glow-title {
+  text-shadow:
+    0 0 4px var(--accent-primary),
+    0 0 10px var(--accent-primary);
+}
+
+.glow-subtitle {
+  text-shadow: 0 0 4px #f5c518;
+}
+
+.btn-glow:hover {
+  box-shadow:
+    0 0 10px var(--border-glow),
+    inset 0 0 8px var(--btn-bg);
+}
+
+/* === GLITCH ANIMATION === */
+@keyframes glitch {
+  0%   { transform: translate(0); }
+  20%  { transform: translate(-3px, 1px); filter: hue-rotate(90deg); }
+  40%  { transform: translate(3px, -1px); filter: hue-rotate(0deg); }
+  60%  { transform: translate(-2px, 2px); }
+  80%  { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+.glitch-anim {
+  animation: glitch 0.5s ease;
+}
+
+/* === FLICKER ANIMATION === */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92%       { opacity: 1; }
+  93%       { opacity: 0.97; }
+  94%       { opacity: 1; }
+  96%       { opacity: 0.98; }
+}
+.flicker-anim {
+  animation: flicker 4s infinite;
+}
+
+/* === SCANLINE EFFECT === */
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scanline {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--grid-line);
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* === GRID BACKGROUND === */
+.grid-bg {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* === CORNER DECORATIONS === */
+.corner-tl, .corner-tr, .corner-bl, .corner-br {
+  position: fixed;
+  width: 40px; height: 40px;
+  border-color: var(--border-glow);
+  border-style: solid;
+  pointer-events: none;
+  z-index: 50;
+}
+.corner-tl { top: 16px; left: 16px;  border-width: 2px 0 0 2px; }
+.corner-tr { top: 16px; right: 16px; border-width: 2px 2px 0 0; }
+.corner-bl { bottom: 16px; left: 16px;  border-width: 0 0 2px 2px; }
+.corner-br { bottom: 16px; right: 16px; border-width: 0 2px 2px 0; }
+
+/* === LOADING PROGRESS BAR === */
+.progress-bar {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
+  background-size: 200% 100%;
+  animation: shimmer 1s linear infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb { background: var(--accent-primary); border-radius: 2px; }
+
+/* === SELECTION === */
+::selection { background: var(--btn-bg); color: var(--accent-primary); }
+
+/* === GLOBAL STYLES === */
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
