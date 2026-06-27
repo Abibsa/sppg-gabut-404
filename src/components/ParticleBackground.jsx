@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Particles, { ParticlesProvider } from "@tsparticles/react";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import { useTheme } from "../context/ThemeContext";
 
@@ -7,10 +7,13 @@ export default function ParticleBackground() {
   const [initFinished, setInitFinished] = useState(false);
   const { theme } = useTheme();
 
-  const init = async (engine) => {
-    await loadSlim(engine);
-    setInitFinished(true);
-  };
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    }).then(() => {
+      setInitFinished(true);
+    });
+  }, []);
 
   const options = {
     background: {
@@ -74,15 +77,13 @@ export default function ParticleBackground() {
     detectRetina: true,
   };
 
+  if (!initFinished) return null;
+
   return (
-    <ParticlesProvider init={init}>
-      {initFinished && (
-        <Particles
-          id="tsparticles"
-          options={options}
-          className="absolute inset-0 z-0 pointer-events-none"
-        />
-      )}
-    </ParticlesProvider>
+    <Particles
+      id="tsparticles"
+      options={options}
+      className="absolute inset-0 z-0 pointer-events-none"
+    />
   );
 }

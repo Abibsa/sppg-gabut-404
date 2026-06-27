@@ -4,16 +4,11 @@ export default function DigitalClock() {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    let animationFrameId;
-    
-    const updateTime = () => {
+    const intervalId = setInterval(() => {
       setTime(new Date());
-      animationFrameId = requestAnimationFrame(updateTime);
-    };
+    }, 50);
     
-    animationFrameId = requestAnimationFrame(updateTime);
-    
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => clearInterval(intervalId);
   }, []);
 
   const pad = (num, digits = 2) => num.toString().padStart(digits, '0');
