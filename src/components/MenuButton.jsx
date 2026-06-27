@@ -19,8 +19,8 @@ export default function MenuButton({ label, link, external }) {
       <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[var(--accent-primary)] opacity-0 group-hover:opacity-100 transition-opacity" />
       
       <div className="flex items-center justify-center gap-2 relative z-10">
-        <ChevronRight size={20} className="group-hover:text-[var(--text-main)] transition-colors" />
-        <span className="group-hover:text-[var(--text-main)] transition-colors">{label}</span>
+        <ChevronRight size={20} className="group-hover:text-[var(--text-main)] transition-colors shrink-0" />
+        <span className="group-hover:text-[var(--text-main)] transition-colors text-center leading-tight">{label}</span>
       </div>
     </>
   );
