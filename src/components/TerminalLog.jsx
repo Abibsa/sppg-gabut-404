@@ -13,7 +13,7 @@ const LOG_MESSAGES = [
 
 export default function TerminalLog() {
   const [logs, setLogs] = useState([]);
-  const bottomRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     // Initial logs
@@ -38,7 +38,9 @@ export default function TerminalLog() {
   }, []);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
   }, [logs]);
 
   return (
@@ -46,14 +48,13 @@ export default function TerminalLog() {
       <div className="text-[var(--text-muted)] border-b border-[var(--grid-line)] pb-2 mb-2 font-bold tracking-wider">
         TERMINAL LOG
       </div>
-      <div className="flex-1 overflow-y-auto space-y-1 pr-2">
+      <div ref={containerRef} className="flex-1 overflow-y-auto space-y-1 pr-2">
         {logs.map((log, i) => (
           <div key={i} className="flex gap-2">
             <span className="text-[var(--text-muted)]">[{log.time}]</span>
             <span className="text-[var(--accent-primary)]">{log.text}</span>
           </div>
         ))}
-        <div ref={bottomRef} />
       </div>
     </div>
   );
